@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  node:
+    container_name: node_tools
+    build:
+      context: ./
+      args:
+        uname: ${UNAME}
+        uid: ${UID}
+        gid: ${GID}
+    ports:
+      - ${NODE_PORT}:3000
+    volumes: 
+      - .:/var/www/
+    tty: true
