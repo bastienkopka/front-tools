@@ -11,5 +11,9 @@ init:
 up:
 	docker-compose up -d --build
 
+stop:
+	docker-compose stop
+	docker-compose down
+
 shell:
 	docker-compose exec -u $(UNAME) node sh
