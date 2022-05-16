@@ -1,1 +1,6 @@
 /.env
+
+# Bundler
+/bundler/dist/
+/bundler/node_modules/
+/bundler/package-lock.json
