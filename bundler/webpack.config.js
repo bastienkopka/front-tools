@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
   entry : [
@@ -19,7 +20,7 @@ const config = {
           'css-loader',
           'sass-loader',
           'postcss-loader'
-        ],
+        ]
       },
       {
         test: /\.js$/,
@@ -27,15 +28,43 @@ const config = {
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env'],
-          plugins: ['@babel/plugin-transform-runtime'],
+          plugins: ['@babel/plugin-transform-runtime']
         }
       },
-    ]
+      {
+        test: /\.(eot|ttf|woff|woff2|otf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options:{
+              name: '[name].[ext]',
+              outputPath: 'fonts'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|svg|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      }
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/[name].min.css',
+      filename: 'css/[name].min.css'
     }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'images', to: 'images' }
+      ]
+    })
   ]
 };
 
